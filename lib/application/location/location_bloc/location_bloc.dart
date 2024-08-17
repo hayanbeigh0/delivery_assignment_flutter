@@ -18,27 +18,35 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           final LocationRepository locationRepository =
               LocationRepository(value.orderId);
 
-          _locationSubscription = locationRepository.locationStream.listen(
-            (data) {
-              add(const LocationEvent.loading());
-              add(LocationEvent.locationChanged(location: data));
-            },
-          );
+          if (!isClosed) {
+            _locationSubscription = locationRepository.locationStream.listen(
+              (data) {
+                if (!isClosed) {
+                  add(const LocationEvent.loading());
+                  add(LocationEvent.locationChanged(location: data));
+                }
+              },
+            );
+          }
         },
         loading: (value) => emit(const LocationState.initial()),
         locationChanged: (value) {
-          emit(
-            LocationState.updatedLocation(location: value.location),
-          );
+          if (!isClosed) {
+            emit(
+              LocationState.updatedLocation(location: value.location),
+            );
+          }
         },
         emitLocationUpdate: (_EmitLocationUpdate value) {
           final LocationRepository locationRepository =
               LocationRepository(value.orderId);
-          locationRepository.emitLocationUpdate(
-            latitude: value.location.coordinates[0],
-            longitude: value.location.coordinates[1],
-            orderId: value.orderId,
-          );
+          if (!isClosed) {
+            locationRepository.emitLocationUpdate(
+              latitude: value.location.coordinates[0],
+              longitude: value.location.coordinates[1],
+              orderId: value.orderId,
+            );
+          }
         },
       );
     });

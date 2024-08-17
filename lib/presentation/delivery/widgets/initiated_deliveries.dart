@@ -230,8 +230,8 @@ class InitiatedDeliveryWidget extends StatelessWidget {
                                                 value.delivery[index].order
                                                     .buyerAddress!.address
                                                     .toString(),
-                                                maxLines: 3,
-                                                overflow: TextOverflow.fade,
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
                                                 style: GoogleFonts.lato(
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w500,

@@ -126,7 +126,7 @@ class _DeliveryWidgetState extends State<DeliveryWidget> {
         // timeLimit: Duration(seconds: 10),
       ),
     ).listen((Position position) {
-      setState(() {
+      if (mounted) {
         BlocProvider.of<LocationBloc>(context).add(
           LocationEvent.emitLocationUpdate(
             location: Location(
@@ -136,13 +136,14 @@ class _DeliveryWidgetState extends State<DeliveryWidget> {
             orderId: orderId,
           ),
         );
-      });
+      }
     });
   }
 
   @override
   void dispose() {
     positionStream?.cancel();
+    _debounceTimer?.cancel();
     super.dispose();
   }
 
@@ -405,17 +406,19 @@ class _DeliveryWidgetState extends State<DeliveryWidget> {
           await fetchAndDrawPolyline(newStart, newEnd);
 
       if (newPolylineCoordinates != null) {
-        setState(() {
-          polylines.clear();
-          polylines.add(
-            Polyline(
-              polylineId: const PolylineId('real_time_polyline'),
-              points: newPolylineCoordinates,
-              color: Colors.blue,
-              width: 5,
-            ),
-          );
-        });
+        if (mounted) {
+          setState(() {
+            polylines.clear();
+            polylines.add(
+              Polyline(
+                polylineId: const PolylineId('real_time_polyline'),
+                points: newPolylineCoordinates,
+                color: Colors.blue,
+                width: 5,
+              ),
+            );
+          });
+        }
         debugPrint('New polylines set');
       } else {
         debugPrint('No points found');

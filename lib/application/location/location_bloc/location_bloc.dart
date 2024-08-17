@@ -10,7 +10,7 @@ part 'location_state.dart';
 part 'location_bloc.freezed.dart';
 
 class LocationBloc extends Bloc<LocationEvent, LocationState> {
-  late final StreamSubscription _locationSubscription;
+  StreamSubscription? _locationSubscription;
   LocationBloc() : super(const _Initial()) {
     on<LocationEvent>((event, emit) {
       event.map(
@@ -46,7 +46,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   @override
   Future<void> close() {
     // Cancel the subscription when the bloc is closed
-    _locationSubscription.cancel();
+    _locationSubscription?.cancel();
     return super.close();
   }
 }

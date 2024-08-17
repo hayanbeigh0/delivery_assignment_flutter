@@ -164,7 +164,7 @@ class _SellerProductsPageContentState extends State<SellerProductsPageContent> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
-            label: 'Orders',
+            label: 'Order Requests',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add),

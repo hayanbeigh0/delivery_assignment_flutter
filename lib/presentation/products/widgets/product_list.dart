@@ -71,80 +71,121 @@ class ProductList extends StatelessWidget {
             return state.maybeMap(
               orElse: () => const SizedBox(),
               success: (userValue) {
-                return RefreshIndicator(
-                  onRefresh: () {
-                    return BlocProvider.of<ProductsCubit>(context)
-                        .getAllProducts();
-                  },
-                  child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      childAspectRatio:
-                          userValue.user.role == "BUYER" ? 0.70 : 0.70,
-                    ),
-                    padding: const EdgeInsets.only(
-                      left: 16,
-                      right: 16,
-                      top: 0,
-                      bottom: 20,
-                    ),
-                    shrinkWrap: true,
-                    itemCount: productList.length,
-                    itemBuilder: (context, index) {
-                      return BlocConsumer<ProductCartCubit, ProductCartState>(
-                        listener: (context, state) {
-                          state.maybeMap(
-                            orElse: () {},
-                            failed: (value) {
-                              FlushbarHelper.createError(
-                                duration: const Duration(milliseconds: 1000),
-                                message: 'Item already in the cart!',
-                              ).show(context);
-                            },
-                            added: (value) {
-                              FlushbarHelper.createSuccess(
-                                duration: const Duration(milliseconds: 1000),
-                                message: 'Item added to the cart!',
-                              ).show(context);
-                            },
-                            removed: (value) {
-                              FlushbarHelper.createSuccess(
-                                duration: const Duration(milliseconds: 1000),
-                                message: 'Item removed to the cart!',
-                              ).show(context);
-                            },
+                return BlocBuilder<ProductsCubit, ProductsState>(
+                  builder: (context, state) {
+                    return state.maybeMap(
+                      orElse: () => const SizedBox(),
+                      loaded: (value) {
+                        if (value.products.isEmpty) {
+                          return Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'No products here!',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    BlocProvider.of<ProductsCubit>(context)
+                                        .getAllProducts();
+                                  },
+                                  child: const Text('Refresh'),
+                                )
+                              ],
+                            ),
                           );
-                        },
-                        builder: (context, state) {
-                          return state.maybeMap(
-                            orElse: () => const SizedBox(),
-                            success: (value) {
-                              return ProductGridItem(
-                                user: user,
-                                disableAddToCart:
-                                    value.products.contains(productList[index]),
-                                onAddToCart: () {
-                                  BlocProvider.of<ProductCartCubit>(context)
-                                      .addProduct(
-                                    product: productList[index],
+                        }
+                        return RefreshIndicator(
+                          onRefresh: () {
+                            return BlocProvider.of<ProductsCubit>(context)
+                                .getAllProducts();
+                          },
+                          child: GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                              childAspectRatio: 0.70,
+                            ),
+                            padding: const EdgeInsets.only(
+                              left: 16,
+                              right: 16,
+                              top: 0,
+                              bottom: 20,
+                            ),
+                            shrinkWrap: true,
+                            itemCount: productList.length,
+                            itemBuilder: (context, index) {
+                              return BlocConsumer<ProductCartCubit,
+                                  ProductCartState>(
+                                listener: (context, state) {
+                                  state.maybeMap(
+                                    orElse: () {},
+                                    failed: (value) {
+                                      FlushbarHelper.createError(
+                                        duration:
+                                            const Duration(milliseconds: 1000),
+                                        message: 'Item already in the cart!',
+                                      ).show(context);
+                                    },
+                                    added: (value) {
+                                      FlushbarHelper.createSuccess(
+                                        duration:
+                                            const Duration(milliseconds: 1000),
+                                        message: 'Item added to the cart!',
+                                      ).show(context);
+                                    },
+                                    removed: (value) {
+                                      FlushbarHelper.createSuccess(
+                                        duration:
+                                            const Duration(milliseconds: 1000),
+                                        message: 'Item removed to the cart!',
+                                      ).show(context);
+                                    },
                                   );
                                 },
-                                onRemoveFromCart: () {
-                                  BlocProvider.of<ProductCartCubit>(context)
-                                      .removeProduct(
-                                    product: productList[index],
+                                builder: (context, state) {
+                                  return state.maybeMap(
+                                    orElse: () => const SizedBox(),
+                                    success: (value) {
+                                      return ProductGridItem(
+                                        user: user,
+                                        disableAddToCart: value.products
+                                            .contains(productList[index]),
+                                        onAddToCart: () {
+                                          BlocProvider.of<ProductCartCubit>(
+                                                  context)
+                                              .addProduct(
+                                            product: productList[index],
+                                          );
+                                        },
+                                        onRemoveFromCart: () {
+                                          BlocProvider.of<ProductCartCubit>(
+                                                  context)
+                                              .removeProduct(
+                                            product: productList[index],
+                                          );
+                                        },
+                                        product: productList[index],
+                                      );
+                                    },
                                   );
                                 },
-                                product: productList[index],
                               );
                             },
-                          );
-                        },
-                      );
-                    },
-                  ),
+                          ),
+                        );
+                      },
+                    );
+                  },
                 );
               },
             );

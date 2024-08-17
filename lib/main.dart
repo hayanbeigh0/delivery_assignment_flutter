@@ -52,6 +52,7 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp.router(
           title: 'Shopping App',
+          debugShowCheckedModeBanner: false,
           routerConfig: _appRouter.config(),
           theme: ThemeData(
             primaryColor: const Color.fromARGB(255, 134, 134, 231),

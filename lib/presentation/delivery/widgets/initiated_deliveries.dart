@@ -133,10 +133,9 @@ class InitiatedDeliveryWidget extends StatelessWidget {
                             }
                             return RefreshIndicator(
                               onRefresh: () =>
-                                  BlocProvider.of<DeliveriesCubit>(context)
-                                      .getDeliveries(
-                                activeDeliveries: true,
-                              ),
+                                  BlocProvider.of<InitiatedDeliveriesCubit>(
+                                          context)
+                                      .getInitiatedDeliveries(),
                               child: ListView.separated(
                                 separatorBuilder: (context, index) =>
                                     const SizedBox(

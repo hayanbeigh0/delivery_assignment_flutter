@@ -8,7 +8,6 @@ import 'package:shopping_app/application/products/products_cubit/products_cubit.
 import 'package:shopping_app/injection.dart';
 import 'package:shopping_app/presentation/core/widgets/app_scaffold.dart';
 import 'package:shopping_app/presentation/products/widgets/helper_widgets.dart';
-import 'package:shopping_app/presentation/products/widgets/orders_button.dart';
 import 'package:shopping_app/presentation/products/widgets/product_list.dart';
 
 @RoutePage()

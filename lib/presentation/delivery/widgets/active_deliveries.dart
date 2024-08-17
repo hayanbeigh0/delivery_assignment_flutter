@@ -295,7 +295,6 @@ class _DeliveryWidgetState extends State<DeliveryWidget> {
                             ),
                             Text(
                               'Drop address: ${value.deliveries.first.dropAddress.address}',
-                              //
                             ),
                             Text(
                               'Total distance between pickup and drop: $distance',

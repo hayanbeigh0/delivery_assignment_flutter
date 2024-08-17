@@ -3,6 +3,7 @@ import 'package:shopping_app/domain/delivery/delivery.dart';
 import 'package:shopping_app/domain/product_order/product_order.dart';
 import 'package:shopping_app/domain/user/user.dart';
 import 'package:shopping_app/infrastructure/product_order/product_order_dtos.dart';
+import 'package:shopping_app/infrastructure/products/product_dtos.dart';
 import 'package:shopping_app/infrastructure/user/user_dtos.dart';
 
 part 'delivery_dtos.freezed.dart';
@@ -61,7 +62,7 @@ class OrderDto with _$OrderDto {
     @JsonKey(name: '_id') String? id,
     AddressDto? buyerAddress,
     AddressDto? sellerAddress,
-    String? product,
+    @JsonKey(toJson: productToJson) ProductDto? product,
     UserDto? seller,
     UserDto? buyer,
     int? price,
@@ -79,7 +80,7 @@ class OrderDto with _$OrderDto {
       id: id,
       buyerAddress: buyerAddress?.toDomain(),
       sellerAddress: sellerAddress?.toDomain(),
-      product: product,
+      product: product?.toDomain(),
       seller: seller?.toDomain(),
       buyer: buyer?.toDomain(),
       price: price,
@@ -99,7 +100,8 @@ class OrderDto with _$OrderDto {
       sellerAddress: order.sellerAddress == null
           ? null
           : AddressDto.fromDomain(order.sellerAddress!),
-      product: order.product,
+      product:
+          order.product == null ? null : ProductDto.fromDomain(order.product!),
       seller: order.seller == null ? null : UserDto.fromDomain(order.seller!),
       buyer: order.buyer == null ? null : UserDto.fromDomain(order.buyer!),
       price: order.price,
@@ -120,6 +122,11 @@ orderFromJson(dynamic json) {
   }
   // Handle as map if needed
   return OrderDto.fromDomain(Order(id: json));
+}
+
+productToJson(ProductDto? productDto) {
+  // Check if json is a list and parse it
+  return productDto?.id;
 }
 
 @freezed

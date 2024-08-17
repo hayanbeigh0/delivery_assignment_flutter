@@ -2,12 +2,10 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shopping_app/application/delivery/deliveries_cubit/deliveries_cubit.dart';
 import 'package:shopping_app/application/delivery/delivery_cubit/delivery_cubit.dart';
@@ -299,7 +297,7 @@ class _DeliveryWidgetState extends State<DeliveryWidget> {
                               'Drop address: ${value.deliveries.first.dropAddress.address}',
                             ),
                             Text(
-                              'Total distance to cover: $distance',
+                              'Total distance between pickup and drop: $distance',
                             ),
                             const SizedBox(
                               height: 10,

@@ -320,7 +320,7 @@ mixin _$Order {
   String? get id => throw _privateConstructorUsedError;
   Address? get buyerAddress => throw _privateConstructorUsedError;
   Address? get sellerAddress => throw _privateConstructorUsedError;
-  String? get product => throw _privateConstructorUsedError;
+  Product? get product => throw _privateConstructorUsedError;
   User? get seller => throw _privateConstructorUsedError;
   User? get buyer => throw _privateConstructorUsedError;
   int? get price => throw _privateConstructorUsedError;
@@ -342,7 +342,7 @@ abstract class $OrderCopyWith<$Res> {
       {String? id,
       Address? buyerAddress,
       Address? sellerAddress,
-      String? product,
+      Product? product,
       User? seller,
       User? buyer,
       int? price,
@@ -353,6 +353,7 @@ abstract class $OrderCopyWith<$Res> {
 
   $AddressCopyWith<$Res>? get buyerAddress;
   $AddressCopyWith<$Res>? get sellerAddress;
+  $ProductCopyWith<$Res>? get product;
   $UserCopyWith<$Res>? get seller;
   $UserCopyWith<$Res>? get buyer;
 }
@@ -398,7 +399,7 @@ class _$OrderCopyWithImpl<$Res, $Val extends Order>
       product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Product?,
       seller: freezed == seller
           ? _value.seller
           : seller // ignore: cast_nullable_to_non_nullable
@@ -456,6 +457,18 @@ class _$OrderCopyWithImpl<$Res, $Val extends Order>
 
   @override
   @pragma('vm:prefer-inline')
+  $ProductCopyWith<$Res>? get product {
+    if (_value.product == null) {
+      return null;
+    }
+
+    return $ProductCopyWith<$Res>(_value.product!, (value) {
+      return _then(_value.copyWith(product: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
   $UserCopyWith<$Res>? get seller {
     if (_value.seller == null) {
       return null;
@@ -490,7 +503,7 @@ abstract class _$$OrderImplCopyWith<$Res> implements $OrderCopyWith<$Res> {
       {String? id,
       Address? buyerAddress,
       Address? sellerAddress,
-      String? product,
+      Product? product,
       User? seller,
       User? buyer,
       int? price,
@@ -503,6 +516,8 @@ abstract class _$$OrderImplCopyWith<$Res> implements $OrderCopyWith<$Res> {
   $AddressCopyWith<$Res>? get buyerAddress;
   @override
   $AddressCopyWith<$Res>? get sellerAddress;
+  @override
+  $ProductCopyWith<$Res>? get product;
   @override
   $UserCopyWith<$Res>? get seller;
   @override
@@ -548,7 +563,7 @@ class __$$OrderImplCopyWithImpl<$Res>
       product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Product?,
       seller: freezed == seller
           ? _value.seller
           : seller // ignore: cast_nullable_to_non_nullable
@@ -605,7 +620,7 @@ class _$OrderImpl implements _Order {
   @override
   final Address? sellerAddress;
   @override
-  final String? product;
+  final Product? product;
   @override
   final User? seller;
   @override
@@ -684,7 +699,7 @@ abstract class _Order implements Order {
       {final String? id,
       final Address? buyerAddress,
       final Address? sellerAddress,
-      final String? product,
+      final Product? product,
       final User? seller,
       final User? buyer,
       final int? price,
@@ -700,7 +715,7 @@ abstract class _Order implements Order {
   @override
   Address? get sellerAddress;
   @override
-  String? get product;
+  Product? get product;
   @override
   User? get seller;
   @override

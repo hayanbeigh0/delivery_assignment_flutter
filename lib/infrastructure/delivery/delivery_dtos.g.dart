@@ -41,7 +41,9 @@ _$OrderDtoImpl _$$OrderDtoImplFromJson(Map<String, dynamic> json) =>
       sellerAddress: json['sellerAddress'] == null
           ? null
           : AddressDto.fromJson(json['sellerAddress'] as Map<String, dynamic>),
-      product: json['product'] as String?,
+      product: json['product'] == null
+          ? null
+          : ProductDto.fromJson(json['product'] as Map<String, dynamic>),
       seller: json['seller'] == null
           ? null
           : UserDto.fromJson(json['seller'] as Map<String, dynamic>),
@@ -66,7 +68,7 @@ Map<String, dynamic> _$$OrderDtoImplToJson(_$OrderDtoImpl instance) =>
       '_id': instance.id,
       'buyerAddress': instance.buyerAddress,
       'sellerAddress': instance.sellerAddress,
-      'product': instance.product,
+      'product': productToJson(instance.product),
       'seller': instance.seller,
       'buyer': instance.buyer,
       'price': instance.price,

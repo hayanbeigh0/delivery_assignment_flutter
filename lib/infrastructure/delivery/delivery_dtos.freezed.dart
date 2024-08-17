@@ -359,7 +359,8 @@ mixin _$OrderDto {
   String? get id => throw _privateConstructorUsedError;
   AddressDto? get buyerAddress => throw _privateConstructorUsedError;
   AddressDto? get sellerAddress => throw _privateConstructorUsedError;
-  String? get product => throw _privateConstructorUsedError;
+  @JsonKey(toJson: productToJson)
+  ProductDto? get product => throw _privateConstructorUsedError;
   UserDto? get seller => throw _privateConstructorUsedError;
   UserDto? get buyer => throw _privateConstructorUsedError;
   int? get price => throw _privateConstructorUsedError;
@@ -385,7 +386,7 @@ abstract class $OrderDtoCopyWith<$Res> {
       {@JsonKey(name: '_id') String? id,
       AddressDto? buyerAddress,
       AddressDto? sellerAddress,
-      String? product,
+      @JsonKey(toJson: productToJson) ProductDto? product,
       UserDto? seller,
       UserDto? buyer,
       int? price,
@@ -396,6 +397,7 @@ abstract class $OrderDtoCopyWith<$Res> {
 
   $AddressDtoCopyWith<$Res>? get buyerAddress;
   $AddressDtoCopyWith<$Res>? get sellerAddress;
+  $ProductDtoCopyWith<$Res>? get product;
   $UserDtoCopyWith<$Res>? get seller;
   $UserDtoCopyWith<$Res>? get buyer;
 }
@@ -441,7 +443,7 @@ class _$OrderDtoCopyWithImpl<$Res, $Val extends OrderDto>
       product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as ProductDto?,
       seller: freezed == seller
           ? _value.seller
           : seller // ignore: cast_nullable_to_non_nullable
@@ -499,6 +501,18 @@ class _$OrderDtoCopyWithImpl<$Res, $Val extends OrderDto>
 
   @override
   @pragma('vm:prefer-inline')
+  $ProductDtoCopyWith<$Res>? get product {
+    if (_value.product == null) {
+      return null;
+    }
+
+    return $ProductDtoCopyWith<$Res>(_value.product!, (value) {
+      return _then(_value.copyWith(product: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
   $UserDtoCopyWith<$Res>? get seller {
     if (_value.seller == null) {
       return null;
@@ -534,7 +548,7 @@ abstract class _$$OrderDtoImplCopyWith<$Res>
       {@JsonKey(name: '_id') String? id,
       AddressDto? buyerAddress,
       AddressDto? sellerAddress,
-      String? product,
+      @JsonKey(toJson: productToJson) ProductDto? product,
       UserDto? seller,
       UserDto? buyer,
       int? price,
@@ -547,6 +561,8 @@ abstract class _$$OrderDtoImplCopyWith<$Res>
   $AddressDtoCopyWith<$Res>? get buyerAddress;
   @override
   $AddressDtoCopyWith<$Res>? get sellerAddress;
+  @override
+  $ProductDtoCopyWith<$Res>? get product;
   @override
   $UserDtoCopyWith<$Res>? get seller;
   @override
@@ -592,7 +608,7 @@ class __$$OrderDtoImplCopyWithImpl<$Res>
       product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as ProductDto?,
       seller: freezed == seller
           ? _value.seller
           : seller // ignore: cast_nullable_to_non_nullable
@@ -632,7 +648,7 @@ class _$OrderDtoImpl extends _OrderDto {
       {@JsonKey(name: '_id') this.id,
       this.buyerAddress,
       this.sellerAddress,
-      this.product,
+      @JsonKey(toJson: productToJson) this.product,
       this.seller,
       this.buyer,
       this.price,
@@ -654,7 +670,8 @@ class _$OrderDtoImpl extends _OrderDto {
   @override
   final AddressDto? sellerAddress;
   @override
-  final String? product;
+  @JsonKey(toJson: productToJson)
+  final ProductDto? product;
   @override
   final UserDto? seller;
   @override
@@ -743,7 +760,7 @@ abstract class _OrderDto extends OrderDto {
       {@JsonKey(name: '_id') final String? id,
       final AddressDto? buyerAddress,
       final AddressDto? sellerAddress,
-      final String? product,
+      @JsonKey(toJson: productToJson) final ProductDto? product,
       final UserDto? seller,
       final UserDto? buyer,
       final int? price,
@@ -764,7 +781,8 @@ abstract class _OrderDto extends OrderDto {
   @override
   AddressDto? get sellerAddress;
   @override
-  String? get product;
+  @JsonKey(toJson: productToJson)
+  ProductDto? get product;
   @override
   UserDto? get seller;
   @override

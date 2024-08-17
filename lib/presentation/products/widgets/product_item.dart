@@ -51,17 +51,24 @@ class ProductGridItem extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   product.name!,
+                  maxLines: 1,
                   style: TextStyle(
                     fontSize: user != null && user!.role == 'BUYER' ? 14 : 16,
                   ),
                 ),
                 if (user != null && user!.role == 'SELLER')
-                  Text(product.description!),
+                  Text(
+                    product.description!,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                  ),
                 Text(
                   '₹ ${product.price}',
+                  maxLines: 1,
                   style: TextStyle(
                     fontSize: user != null && user!.role == 'BUYER' ? 14 : 16,
                   ),

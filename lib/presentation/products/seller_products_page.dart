@@ -107,10 +107,47 @@ class _SellerProductsPageContentState extends State<SellerProductsPageContent> {
                           builder: (context, state) {
                             return state.maybeMap(
                               orElse: () => const SizedBox(),
-                              success: (userValue) => ProductList(
-                                productList: value.products,
-                                user: userValue.user,
-                              ),
+                              success: (userValue) {
+                                if (value.products.isEmpty &&
+                                    userValue.user.role == 'SELLER') {
+                                  return Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          'No products added yet!',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            context.router
+                                                .pushNamed('/add-product')
+                                                .then((_) {
+                                              BlocProvider.of<ProductsCubit>(
+                                                      context)
+                                                  .getAllProducts();
+                                              setState(() {});
+                                            });
+                                          },
+                                          child: const Text('Add Products'),
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                }
+                                return ProductList(
+                                  productList: value.products,
+                                  user: userValue.user,
+                                );
+                              },
                             );
                           },
                         );

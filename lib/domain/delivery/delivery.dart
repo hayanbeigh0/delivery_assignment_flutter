@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shopping_app/domain/product_order/product_order.dart';
+import 'package:shopping_app/domain/products/product.dart';
 import 'package:shopping_app/domain/user/user.dart';
 
 part 'delivery.freezed.dart';
@@ -24,7 +25,7 @@ class Order with _$Order {
     String? id,
     Address? buyerAddress,
     Address? sellerAddress,
-    String? product,
+    Product? product,
     User? seller,
     User? buyer,
     int? price,

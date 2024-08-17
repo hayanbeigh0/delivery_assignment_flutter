@@ -8,6 +8,7 @@ import 'package:shopping_app/application/delivery/deliveries_cubit/deliveries_cu
 import 'package:shopping_app/application/delivery/delivery_cubit/delivery_cubit.dart';
 import 'package:shopping_app/application/delivery/initiated_deliveries_cubit/initiated_deliveries_cubit.dart';
 import 'package:shopping_app/injection.dart';
+import 'package:shopping_app/presentation/core/utils/global_variables.dart';
 import 'package:shopping_app/presentation/core/widgets/app_card.dart';
 import 'package:shopping_app/presentation/core/widgets/app_scaffold.dart';
 import 'package:shopping_app/presentation/core/widgets/spinner_overlay.dart';
@@ -159,8 +160,9 @@ class InitiatedDeliveryWidget extends StatelessWidget {
                                               height: 120.w,
                                               width: 120.w,
                                               child: Image.network(
-                                                'https://economictimes.indiatimes.com/thumb/msid-100966456,width-1200,height-900,resizemode-4,imgsize-63314/why-become-a-product-manager.jpg?from=mdr',
-                                                // productList[index].image.toString(),
+                                                value.delivery[index].order
+                                                        .product?.imageUrl ??
+                                                    productImagePlaceholder,
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
@@ -183,8 +185,7 @@ class InitiatedDeliveryWidget extends StatelessWidget {
                                                 children: [
                                                   Text(
                                                     value.delivery[index].order
-                                                        .buyer!.name
-                                                        .toString(),
+                                                        .buyer!.name!,
                                                     maxLines: 1,
                                                     overflow: TextOverflow.clip,
                                                     style: GoogleFonts.lato(
@@ -196,22 +197,28 @@ class InitiatedDeliveryWidget extends StatelessWidget {
                                                               189, 0, 0, 0),
                                                     ),
                                                   ),
-                                                  Text(
-                                                    value.delivery[index]
-                                                        .deliveryStatus
-                                                        .toString(),
-                                                    maxLines: 1,
-                                                    overflow: TextOverflow.clip,
-                                                    style: GoogleFonts.lato(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color:
-                                                          const Color.fromARGB(
-                                                        189,
-                                                        0,
-                                                        0,
-                                                        0,
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 8.0),
+                                                    child: Text(
+                                                      value.delivery[index]
+                                                          .deliveryStatus
+                                                          .toString(),
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.clip,
+                                                      style: GoogleFonts.lato(
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: const Color
+                                                            .fromARGB(
+                                                          189,
+                                                          0,
+                                                          0,
+                                                          0,
+                                                        ),
                                                       ),
                                                     ),
                                                   ),

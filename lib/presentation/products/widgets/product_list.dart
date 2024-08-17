@@ -77,18 +77,12 @@ class ProductList extends StatelessWidget {
                         .getAllProducts();
                   },
                   child: GridView.builder(
-                    // separatorBuilder: (context, index) => const SizedBox(
-                    //   height: 20,
-                    // ),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount:
-                          2, // Adjust the number of columns as needed
-
+                      crossAxisCount: 2,
                       mainAxisSpacing: 10,
                       crossAxisSpacing: 10,
-                      childAspectRatio: userValue.user.role == "BUYER"
-                          ? 0.7
-                          : 0.75, // Adjust the aspect ratio of the grid items
+                      childAspectRatio:
+                          userValue.user.role == "BUYER" ? 0.70 : 0.70,
                     ),
                     padding: const EdgeInsets.only(
                       left: 16,
